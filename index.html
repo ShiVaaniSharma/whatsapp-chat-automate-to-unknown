@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!-- viewport-fit=cover lets us use safe-area insets on notched phones -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#25d366" />
+<title>WhatsApp Number Adder</title>
+<style>
+  :root {
+    --green: #25d366;
+    --green-dark: #1da851;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --bg-soft: #f8fafc;
+    --danger: #ef4444;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;               /* dynamic viewport height = no mobile URL-bar jump */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(10px, 3.5vw, 20px);
+    padding-bottom: calc(clamp(10px, 3.5vw, 20px) + env(safe-area-inset-bottom));
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    background: radial-gradient(circle at 20% 10%, #e8fff3 0%, #f1f5f9 45%, #e2e8f0 100%);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ============ CARD (base = MOBILE) ============ */
+  .card {
+    width: 100%;
+    max-width: 370px;                /* tighter card on phones */
+    background: #ffffff;
+    border-radius: 16px;
+    padding: clamp(16px, 4.6vw, 22px) clamp(14px, 4.2vw, 20px) clamp(14px, 4.2vw, 20px);
+    box-shadow: 0 16px 36px -18px rgba(15, 23, 42, .25),
+                0 2px 6px rgba(15, 23, 42, .04);
+    border: 1px solid rgba(226, 232, 240, .8);
+  }
+
+  /* Card head wrapper (logo + title + subtitle) */
+  .card-head { margin-bottom: clamp(14px, 4vw, 18px); }
+
+  .logo {
+    width: clamp(38px, 10vw, 44px);
+    height: clamp(38px, 10vw, 44px);
+    border-radius: 12px;
+    background: linear-gradient(135deg, #25d366, #12a850);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: clamp(10px, 3.2vw, 14px);
+    box-shadow: 0 7px 15px -6px rgba(37, 211, 102, .7);
+  }
+
+  .logo svg { width: 55%; height: 55%; fill: #fff; }
+
+  h1 {
+    font-size: clamp(16px, 4.5vw, 18px);
+    margin: 0 0 4px;
+    letter-spacing: -0.2px;
+    line-height: 1.25;
+  }
+
+  .sub {
+    margin: 0;
+    font-size: clamp(11.5px, 3.2vw, 12.5px);
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  label {
+    display: block;
+    font-size: clamp(11px, 3vw, 12px);
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #334155;
+  }
+
+  /* ---- Input row ---- */
+  .row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .row .field-cc  { flex: 0 0 74px; }
+  .row .field-num { flex: 1 1 auto; min-width: 0; }  /* min-width:0 stops input overflow */
+
+  input {
+    width: 100%;
+    padding: 10px 11px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--bg-soft);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .18s, box-shadow .18s, background .18s;
+  }
+
+  input::placeholder { color: #a3aebd; }
+
+  input:focus {
+    background: #fff;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3.5px rgba(37, 211, 102, .15);
+  }
+
+  .field { margin-bottom: clamp(11px, 3.2vw, 14px); }
+
+  .preview-box {
+    background: var(--bg-soft);
+    border: 1.5px dashed var(--line);
+    border-radius: 10px;
+    padding: 9px 11px;
+    margin-bottom: clamp(12px, 3.6vw, 16px);
+  }
+
+  .preview-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+
+  #preview {
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: clamp(11px, 3vw, 12px);
+    color: #0f766e;
+    word-break: break-all;           /* long links wrap instead of overflowing */
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+  }
+
+  .error {
+    color: var(--danger);
+    font-size: clamp(11px, 3vw, 12px);
+    font-weight: 600;
+    min-height: 16px;
+    margin: -9px 0 9px;
+    line-height: 1.35;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: clamp(12.5px, 3.5vw, 13.5px);
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    min-height: 44px;                /* still a comfortable thumb target */
+    transition: transform .12s, background .18s, box-shadow .18s;
+    touch-action: manipulation;      /* removes 300ms tap delay */
+  }
+
+  button:active { transform: scale(.98); }
+
+  .btn-main {
+    flex: 1 1 auto;
+    padding: 11px 14px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    box-shadow: 0 8px 16px -9px rgba(37, 211, 102, .95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-align: center;
+  }
+
+  .btn-main svg { width: 15px; height: 15px; fill: #fff; flex-shrink: 0; }
+
+  .btn-copy {
+    flex: 0 0 auto;
+    padding: 11px 14px;
+    color: #334155;
+    background: #eef2f6;
+    border: 1.5px solid var(--line);
+  }
+
+  .footer-note {
+    margin-top: clamp(10px, 3vw, 14px);
+    font-size: clamp(10px, 2.9vw, 11px);
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.45;
+  }
+
+  /* Hover effects only on devices that actually hover (avoids sticky hover on touch) */
+  @media (hover: hover) {
+    .btn-main:hover { box-shadow: 0 12px 20px -9px rgba(37, 211, 102, 1); }
+    .btn-copy:hover { background: #e4e9ef; }
+  }
+
+  /* ============================================================
+     TINY PHONES (≤ 360px): stack country code above the number
+     ============================================================ */
+  @media (max-width: 360px) {
+    .row { flex-direction: column; gap: 10px; }
+    .row .field-cc { flex: 1 1 auto; }
+    .row .field-cc input,
+    .row .field-num input { width: 100%; }
+  }
+
+  /* ============================================================
+     NARROW PHONES (≤ 400px): stack the two action buttons
+     ============================================================ */
+  @media (max-width: 400px) {
+    .actions { flex-direction: column; }
+    .btn-copy { width: 100%; }
+  }
+
+  /* ============================================================
+     SHORT LANDSCAPE PHONES
+     ============================================================ */
+  @media (max-height: 620px) and (orientation: landscape) and (max-width: 899px) {
+    body { align-items: flex-start; }
+    .card { padding-top: 16px; padding-bottom: 16px; }
+    .card-head { margin-bottom: 12px; }
+    .logo { width: 36px; height: 36px; margin-bottom: 10px; }
+  }
+
+  /* ============================================================
+     TABLET PORTRAIT (600px – 899px)  — unchanged
+     ============================================================ */
+  @media (min-width: 600px) and (max-width: 899px) {
+    .card {
+      max-width: 600px;
+      border-radius: 22px;
+      padding: 40px 40px 36px;
+    }
+    .card-head { margin-bottom: 28px; }
+    .logo { width: 56px; height: 56px; border-radius: 16px; margin-bottom: 22px; }
+    h1 { font-size: 24px; }
+    .sub { font-size: 15px; }
+
+    .row .field-cc { flex: 0 0 110px; }
+
+    input { padding: 14px 16px; font-size: 16px; }
+    .field { margin-bottom: 20px; }
+
+    .preview-box { padding: 14px 16px; }
+    .preview-label { font-size: 11px; }
+    #preview { font-size: 13.5px; }
+
+    .error { font-size: 13px; min-height: 18px; margin: -12px 0 12px; }
+
+    button { min-height: 54px; font-size: 15px; }
+    .btn-main { padding: 16px 22px; gap: 9px; }
+    .btn-main svg { width: 18px; height: 18px; }
+    .btn-copy { padding: 16px 22px; min-width: 110px; }
+
+    .footer-note { font-size: 12.5px; margin-top: 18px; }
+  }
+
+  /* ============================================================
+     TABLET LANDSCAPE / DESKTOP (≥ 900px)  — unchanged
+     ============================================================ */
+  @media (min-width: 900px) {
+    .card {
+      max-width: 880px;
+      border-radius: 24px;
+      padding: 44px 48px;
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    .card-head {
+      margin-bottom: 0;
+      padding-top: 4px;
+    }
+
+    .card-body {
+      min-width: 0;
+      border-left: 1px solid var(--line);
+      padding-left: 44px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 17px;
+      margin-bottom: 24px;
+    }
+    h1 { font-size: 27px; }
+    .sub { font-size: 15px; line-height: 1.6; }
+
+    .row .field-cc { flex: 0 0 110px; }
+
+    input { padding: 14px 16px; font-size: 15px; }
+    .field { margin-bottom: 20px; }
+
+    .preview-box { padding: 14px 16px; }
+    .preview-label { font-size: 11px; }
+    #preview { font-size: 13.5px; }
+
+    .error { font-size: 13px; min-height: 18px; margin: -12px 0 12px; }
+
+    button { min-height: 54px; font-size: 15px; }
+    .btn-main { padding: 16px 22px; gap: 9px; }
+    .btn-main svg { width: 18px; height: 18px; }
+    .btn-copy { padding: 16px 22px; min-width: 110px; }
+
+    .footer-note { font-size: 12.5px; margin-top: 20px; }
+  }
+
+  /* Large desktops */
+  @media (min-width: 1200px) {
+    .card { max-width: 940px; gap: 52px; padding: 52px 56px; }
+    .card-body { padding-left: 52px; }
+  }
+
+  /* ============================================================
+     ACCESSIBILITY
+     ============================================================ */
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    button:active { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="card">
+
+    <!-- LEFT COLUMN on tablet landscape / desktop -->
+    <div class="card-head">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 2C6.5 2 2 6.5 2 12.05c0 1.77.46 3.44 1.28 4.89L2 22l5.2-1.36a10 10 0 0 0 4.85 1.24h.01c5.54 0 10.04-4.5 10.04-10.05C22.1 6.5 17.6 2 12.05 2zm0 18.13h-.01c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.09.81.83-3.01-.2-.31a8.3 8.3 0 0 1-1.28-4.43c0-4.6 3.75-8.34 8.36-8.34 2.23 0 4.32.87 5.9 2.45a8.28 8.28 0 0 1 2.44 5.9c0 4.6-3.75 8.28-8.39 8.28z"/></svg>
+      </div>
+
+      <h1>WhatsApp Number Adder</h1>
+      <p class="sub">Type a 10-digit number and it will be added to the link <strong>wa.me</strong>. Click the button to open the chat instantly.</p>
+    </div>
+
+    <!-- RIGHT COLUMN on tablet landscape / desktop -->
+    <div class="card-body">
+      <div class="row">
+        <div class="field field-cc">
+          <label for="cc">Code</label>
+          <input id="cc" type="text" inputmode="numeric" pattern="[0-9]*" value="91" maxlength="4" autocomplete="tel-country-code" />
+        </div>
+        <div class="field field-num">
+          <label for="number">WhatsApp Number (10 digits)</label>
+          <input id="number" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="9876543210" maxlength="10" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="preview-box">
+        <div class="preview-label">Generated Link</div>
+        <div id="preview">https://wa.me/…</div>
+      </div>
+
+      <div class="error" id="error" role="alert" aria-live="polite"></div>
+
+      <div class="actions">
+        <button class="btn-main" id="go" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          Chat on WhatsApp
+        </button>
+        <button class="btn-copy" id="copy" type="button" title="Copy link">Copy</button>
+      </div>
+
+      <p class="footer-note">Opens in a new tab · Make sure the country code is correct</p>
+    </div>
+
+  </main>
+
+<script>
+  const ccInput  = document.getElementById('cc');
+  const numInput = document.getElementById('number');
+  const preview  = document.getElementById('preview');
+  const errorEl  = document.getElementById('error');
+  const goBtn    = document.getElementById('go');
+  const copyBtn  = document.getElementById('copy');
+
+  const onlyDigits = (str) => str.replace(/\D/g, '');
+
+  /* Build the wa.me link */
+  function buildLink() {
+    const cc  = onlyDigits(ccInput.value);
+    const num = onlyDigits(numInput.value);
+    if (!num) return null;
+    return `https://wa.me/${cc}${num}`;
+  }
+
+  /* Live update of the preview + input sanitizing */
+  function update() {
+    const link = buildLink();
+    preview.textContent = link || 'https://wa.me/…';
+    errorEl.textContent = '';
+  }
+
+  ccInput.addEventListener('input', () => {
+    ccInput.value = onlyDigits(ccInput.value).slice(0, 4);
+    update();
+  });
+
+  numInput.addEventListener('input', () => {
+    numInput.value = onlyDigits(numInput.value).slice(0, 10);
+    update();
+  });
+
+  /* Validation */
+  function validate() {
+    const cc  = onlyDigits(ccInput.value);
+    const num = onlyDigits(numInput.value);
+
+    if (!cc) {
+      errorEl.textContent = 'Please enter a country code (e.g. 91).';
+      ccInput.focus();
+      return null;
+    }
+    if (num.length !== 10) {
+      errorEl.textContent = `Number must be exactly 10 digits (you typed ${num.length}).`;
+      numInput.focus();
+      return null;
+    }
+    errorEl.textContent = '';
+    return `https://wa.me/${cc}${num}`;
+  }
+
+  /* Open the chat */
+  goBtn.addEventListener('click', () => {
+    const link = validate();
+    if (!link) return;
+    window.open(link, '_blank', 'noopener');
+  });
+
+  /* Enter key triggers the chat */
+  numInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') goBtn.click();
+  });
+  ccInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') numInput.focus();
+  });
+
+  /* Copy the link to clipboard */
+  copyBtn.addEventListener('click', async () => {
+    const link = validate();
+    if (!link) return;
+    try {
+      await navigator.clipboard.writeText(link);
+      const original = copyBtn.textContent;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => (copyBtn.textContent = original), 1400);
+    } catch {
+      errorEl.textContent = 'Copy failed — please copy the link manually.';
+    }
+  });
+
+  update();
+</script>
+</body>
+</html>
