@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<!-- viewport-fit=cover lets us use safe-area insets on notched phones -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#25d366" />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2325d366'/%3E%3Cg transform='translate(12 12) scale(1.6667)'%3E%3Cpath fill='%23ffffff' d='M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 2C6.5 2 2 6.5 2 12.05c0 1.77.46 3.44 1.28 4.89L2 22l5.2-1.36a10 10 0 0 0 4.85 1.24h.01c5.54 0 10.04-4.5 10.04-10.05C22.1 6.5 17.6 2 12.05 2zm0 18.13h-.01c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.09.81.83-3.01-.2-.31a8.3 8.3 0 0 1-1.28-4.43c0-4.6 3.75-8.34 8.36-8.34 2.23 0 4.32.87 5.9 2.45a8.28 8.28 0 0 1 2.44 5.9c0 4.6-3.75 8.28-8.39 8.28z'/%3E%3C/g%3E%3C/svg%3E" />
+<link rel="alternate icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2325d366'/%3E%3Cg transform='translate(12 12) scale(1.6667)'%3E%3Cpath fill='%23ffffff' d='M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 2C6.5 2 2 6.5 2 12.05c0 1.77.46 3.44 1.28 4.89L2 22l5.2-1.36a10 10 0 0 0 4.85 1.24h.01c5.54 0 10.04-4.5 10.04-10.05C22.1 6.5 17.6 2 12.05 2zm0 18.13h-.01c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.09.81.83-3.01-.2-.31a8.3 8.3 0 0 1-1.28-4.43c0-4.6 3.75-8.34 8.36-8.34 2.23 0 4.32.87 5.9 2.45a8.28 8.28 0 0 1 2.44 5.9c0 4.6-3.75 8.28-8.39 8.28z'/%3E%3C/g%3E%3C/svg%3E" />
+
 <title>WhatsApp Number Adder</title>
 <style>
   :root {
@@ -19,11 +22,14 @@
 
   * { box-sizing: border-box; }
 
+  html { -webkit-text-size-adjust: 100%; }
+
   html, body { height: 100%; }
 
   body {
     margin: 0;
-    min-height: 100dvh;               /* dynamic viewport height = no mobile URL-bar jump */
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,14 +38,14 @@
     font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
     background: radial-gradient(circle at 20% 10%, #e8fff3 0%, #f1f5f9 45%, #e2e8f0 100%);
     color: var(--ink);
-    -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;              /* prevents any horizontal scroll on phones */
   }
 
   /* ============ CARD (base = MOBILE) ============ */
   .card {
     width: 100%;
-    max-width: 370px;                /* tighter card on phones */
+    max-width: 370px;
     background: #ffffff;
     border-radius: 16px;
     padding: clamp(16px, 4.6vw, 22px) clamp(14px, 4.2vw, 20px) clamp(14px, 4.2vw, 20px);
@@ -48,7 +54,6 @@
     border: 1px solid rgba(226, 232, 240, .8);
   }
 
-  /* Card head wrapper (logo + title + subtitle) */
   .card-head { margin-bottom: clamp(14px, 4vw, 18px); }
 
   .logo {
@@ -87,19 +92,18 @@
     color: #334155;
   }
 
-  /* ---- Input row ---- */
   .row {
     display: flex;
     gap: 8px;
   }
 
   .row .field-cc  { flex: 0 0 74px; }
-  .row .field-num { flex: 1 1 auto; min-width: 0; }  /* min-width:0 stops input overflow */
+  .row .field-num { flex: 1 1 auto; min-width: 0; }
 
   input {
     width: 100%;
     padding: 10px 11px;
-    font-size: 15px;
+    font-size: 16px;                 /* 16px stops iOS auto-zoom */
     font-family: inherit;
     color: var(--ink);
     background: var(--bg-soft);
@@ -107,6 +111,8 @@
     border-radius: 10px;
     outline: none;
     transition: border-color .18s, box-shadow .18s, background .18s;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   input::placeholder { color: #a3aebd; }
@@ -140,7 +146,7 @@
     font-family: ui-monospace, "SF Mono", Consolas, monospace;
     font-size: clamp(11px, 3vw, 12px);
     color: #0f766e;
-    word-break: break-all;           /* long links wrap instead of overflowing */
+    word-break: break-all;
     overflow-wrap: anywhere;
     line-height: 1.4;
   }
@@ -166,9 +172,11 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    min-height: 44px;                /* still a comfortable thumb target */
+    min-height: 46px;
     transition: transform .12s, background .18s, box-shadow .18s;
-    touch-action: manipulation;      /* removes 300ms tap delay */
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   button:active { transform: scale(.98); }
@@ -196,6 +204,27 @@
     border: 1.5px solid var(--line);
   }
 
+  /* Fallback link shown if the popup was blocked (desktop mainly) */
+  .fallback {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+    border-radius: 10px;
+    font-size: clamp(11px, 3.2vw, 12.5px);
+    color: #9a3412;
+    text-align: center;
+    line-height: 1.5;
+    word-break: break-all;
+  }
+  .fallback.show { display: block; }
+  .fallback a {
+    color: #0f766e;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
   .footer-note {
     margin-top: clamp(10px, 3vw, 14px);
     font-size: clamp(10px, 2.9vw, 11px);
@@ -204,15 +233,12 @@
     line-height: 1.45;
   }
 
-  /* Hover effects only on devices that actually hover (avoids sticky hover on touch) */
   @media (hover: hover) {
     .btn-main:hover { box-shadow: 0 12px 20px -9px rgba(37, 211, 102, 1); }
     .btn-copy:hover { background: #e4e9ef; }
   }
 
-  /* ============================================================
-     TINY PHONES (≤ 360px): stack country code above the number
-     ============================================================ */
+  /* TINY PHONES */
   @media (max-width: 360px) {
     .row { flex-direction: column; gap: 10px; }
     .row .field-cc { flex: 1 1 auto; }
@@ -220,17 +246,13 @@
     .row .field-num input { width: 100%; }
   }
 
-  /* ============================================================
-     NARROW PHONES (≤ 400px): stack the two action buttons
-     ============================================================ */
+  /* NARROW PHONES: stack the action buttons */
   @media (max-width: 400px) {
     .actions { flex-direction: column; }
     .btn-copy { width: 100%; }
   }
 
-  /* ============================================================
-     SHORT LANDSCAPE PHONES
-     ============================================================ */
+  /* SHORT LANDSCAPE PHONES */
   @media (max-height: 620px) and (orientation: landscape) and (max-width: 899px) {
     body { align-items: flex-start; }
     .card { padding-top: 16px; padding-bottom: 16px; }
@@ -238,42 +260,28 @@
     .logo { width: 36px; height: 36px; margin-bottom: 10px; }
   }
 
-  /* ============================================================
-     TABLET PORTRAIT (600px – 899px)  — unchanged
-     ============================================================ */
+  /* TABLET PORTRAIT */
   @media (min-width: 600px) and (max-width: 899px) {
-    .card {
-      max-width: 600px;
-      border-radius: 22px;
-      padding: 40px 40px 36px;
-    }
+    .card { max-width: 600px; border-radius: 22px; padding: 40px 40px 36px; }
     .card-head { margin-bottom: 28px; }
     .logo { width: 56px; height: 56px; border-radius: 16px; margin-bottom: 22px; }
     h1 { font-size: 24px; }
     .sub { font-size: 15px; }
-
     .row .field-cc { flex: 0 0 110px; }
-
-    input { padding: 14px 16px; font-size: 16px; }
+    input { padding: 14px 16px; }
     .field { margin-bottom: 20px; }
-
     .preview-box { padding: 14px 16px; }
     .preview-label { font-size: 11px; }
     #preview { font-size: 13.5px; }
-
     .error { font-size: 13px; min-height: 18px; margin: -12px 0 12px; }
-
     button { min-height: 54px; font-size: 15px; }
     .btn-main { padding: 16px 22px; gap: 9px; }
     .btn-main svg { width: 18px; height: 18px; }
     .btn-copy { padding: 16px 22px; min-width: 110px; }
-
     .footer-note { font-size: 12.5px; margin-top: 18px; }
   }
 
-  /* ============================================================
-     TABLET LANDSCAPE / DESKTOP (≥ 900px)  — unchanged
-     ============================================================ */
+  /* TABLET LANDSCAPE / DESKTOP */
   @media (min-width: 900px) {
     .card {
       max-width: 880px;
@@ -284,55 +292,30 @@
       gap: 44px;
       align-items: start;
     }
-
-    .card-head {
-      margin-bottom: 0;
-      padding-top: 4px;
-    }
-
-    .card-body {
-      min-width: 0;
-      border-left: 1px solid var(--line);
-      padding-left: 44px;
-    }
-
-    .logo {
-      width: 60px;
-      height: 60px;
-      border-radius: 17px;
-      margin-bottom: 24px;
-    }
+    .card-head { margin-bottom: 0; padding-top: 4px; }
+    .card-body { min-width: 0; border-left: 1px solid var(--line); padding-left: 44px; }
+    .logo { width: 60px; height: 60px; border-radius: 17px; margin-bottom: 24px; }
     h1 { font-size: 27px; }
     .sub { font-size: 15px; line-height: 1.6; }
-
     .row .field-cc { flex: 0 0 110px; }
-
     input { padding: 14px 16px; font-size: 15px; }
     .field { margin-bottom: 20px; }
-
     .preview-box { padding: 14px 16px; }
     .preview-label { font-size: 11px; }
     #preview { font-size: 13.5px; }
-
     .error { font-size: 13px; min-height: 18px; margin: -12px 0 12px; }
-
     button { min-height: 54px; font-size: 15px; }
     .btn-main { padding: 16px 22px; gap: 9px; }
     .btn-main svg { width: 18px; height: 18px; }
     .btn-copy { padding: 16px 22px; min-width: 110px; }
-
     .footer-note { font-size: 12.5px; margin-top: 20px; }
   }
 
-  /* Large desktops */
   @media (min-width: 1200px) {
     .card { max-width: 940px; gap: 52px; padding: 52px 56px; }
     .card-body { padding-left: 52px; }
   }
 
-  /* ============================================================
-     ACCESSIBILITY
-     ============================================================ */
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
     button:active { transform: none; }
@@ -343,17 +326,14 @@
 
   <main class="card">
 
-    <!-- LEFT COLUMN on tablet landscape / desktop -->
     <div class="card-head">
       <div class="logo">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 2C6.5 2 2 6.5 2 12.05c0 1.77.46 3.44 1.28 4.89L2 22l5.2-1.36a10 10 0 0 0 4.85 1.24h.01c5.54 0 10.04-4.5 10.04-10.05C22.1 6.5 17.6 2 12.05 2zm0 18.13h-.01c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.09.81.83-3.01-.2-.31a8.3 8.3 0 0 1-1.28-4.43c0-4.6 3.75-8.34 8.36-8.34 2.23 0 4.32.87 5.9 2.45a8.28 8.28 0 0 1 2.44 5.9c0 4.6-3.75 8.28-8.39 8.28z"/></svg>
       </div>
-
       <h1>WhatsApp Number Adder</h1>
       <p class="sub">Type a 10-digit number and it will be added to the link <strong>wa.me</strong>. Click the button to open the chat instantly.</p>
     </div>
 
-    <!-- RIGHT COLUMN on tablet landscape / desktop -->
     <div class="card-body">
       <div class="row">
         <div class="field field-cc">
@@ -381,22 +361,36 @@
         <button class="btn-copy" id="copy" type="button" title="Copy link">Copy</button>
       </div>
 
-      <p class="footer-note">Opens in a new tab · Make sure the country code is correct</p>
+      <!-- Fallback appears only if the popup was blocked -->
+      <div class="fallback" id="fallback">
+        WhatsApp didn't open automatically? <a id="fallbackLink" href="#" target="_blank" rel="noopener noreferrer">Tap here to open the chat →</a>
+      </div>
+
+      <p class="footer-note">Opens WhatsApp on your phone · Make sure the country code is correct</p>
     </div>
 
   </main>
 
 <script>
-  const ccInput  = document.getElementById('cc');
-  const numInput = document.getElementById('number');
-  const preview  = document.getElementById('preview');
-  const errorEl  = document.getElementById('error');
-  const goBtn    = document.getElementById('go');
-  const copyBtn  = document.getElementById('copy');
+  const ccInput     = document.getElementById('cc');
+  const numInput    = document.getElementById('number');
+  const preview     = document.getElementById('preview');
+  const errorEl     = document.getElementById('error');
+  const goBtn       = document.getElementById('go');
+  const copyBtn     = document.getElementById('copy');
+  const fallbackBox = document.getElementById('fallback');
+  const fallbackLnk = document.getElementById('fallbackLink');
 
   const onlyDigits = (str) => str.replace(/\D/g, '');
 
-  /* Build the wa.me link */
+  /* Detects mobile/tablet reliably — checks UA, touch points, and coarse pointer */
+  function isMobileDevice() {
+    const ua = navigator.userAgent || '';
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua)) return true;
+    if (navigator.maxTouchPoints > 1 && window.matchMedia('(pointer: coarse)').matches) return true;
+    return false;
+  }
+
   function buildLink() {
     const cc  = onlyDigits(ccInput.value);
     const num = onlyDigits(numInput.value);
@@ -404,11 +398,11 @@
     return `https://wa.me/${cc}${num}`;
   }
 
-  /* Live update of the preview + input sanitizing */
   function update() {
     const link = buildLink();
     preview.textContent = link || 'https://wa.me/…';
     errorEl.textContent = '';
+    fallbackBox.classList.remove('show');
   }
 
   ccInput.addEventListener('input', () => {
@@ -421,7 +415,6 @@
     update();
   });
 
-  /* Validation */
   function validate() {
     const cc  = onlyDigits(ccInput.value);
     const num = onlyDigits(numInput.value);
@@ -440,27 +433,65 @@
     return `https://wa.me/${cc}${num}`;
   }
 
-  /* Open the chat */
-  goBtn.addEventListener('click', () => {
+  /* ------------------------------------------------------------------
+     THE IMPORTANT BIT: opening the link reliably on mobile.
+     On phones, window.open() is blocked by popup blockers — so we
+     navigate directly (window.location.href). This works 100% of the
+     time and instantly opens the WhatsApp app if it's installed.
+     On desktop, we open in a new tab and show a fallback link if a
+     popup blocker still intercepts.
+     ------------------------------------------------------------------ */
+  function openWhatsApp(url) {
+    fallbackBox.classList.remove('show');
+
+    if (isMobileDevice()) {
+      // Direct navigation — always works on mobile, opens WhatsApp app
+      window.location.href = url;
+      return;
+    }
+
+    // Desktop: try a new tab
+    const win = window.open(url, '_blank', 'noopener,noreferrer');
+
+    // If the popup was blocked, show the manual fallback link
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      fallbackLnk.href = url;
+      fallbackBox.classList.add('show');
+    }
+  }
+
+  goBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     const link = validate();
     if (!link) return;
-    window.open(link, '_blank', 'noopener');
+    openWhatsApp(link);
   });
 
   /* Enter key triggers the chat */
   numInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') goBtn.click();
+    if (e.key === 'Enter') { e.preventDefault(); goBtn.click(); }
   });
   ccInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') numInput.focus();
+    if (e.key === 'Enter') { e.preventDefault(); numInput.focus(); }
   });
 
-  /* Copy the link to clipboard */
+  /* Copy link */
   copyBtn.addEventListener('click', async () => {
     const link = validate();
     if (!link) return;
     try {
-      await navigator.clipboard.writeText(link);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(link);
+      } else {
+        // Fallback for older mobile browsers
+        const tmp = document.createElement('textarea');
+        tmp.value = link;
+        tmp.style.cssText = 'position:absolute;left:-9999px;';
+        document.body.appendChild(tmp);
+        tmp.select();
+        document.execCommand('copy');
+        document.body.removeChild(tmp);
+      }
       const original = copyBtn.textContent;
       copyBtn.textContent = 'Copied!';
       setTimeout(() => (copyBtn.textContent = original), 1400);
