@@ -59,15 +59,22 @@
 
   .card-head { margin-bottom: clamp(14px, 4vw, 18px); }
 
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 3vw, 14px);
+    margin-bottom: clamp(8px, 2vw, 10px);
+  }
+
   .logo {
-    width: clamp(38px, 10vw, 44px);
-    height: clamp(38px, 10vw, 44px);
+    width: clamp(36px, 9vw, 42px);
+    height: clamp(36px, 9vw, 42px);
     border-radius: 12px;
     background: linear-gradient(135deg, #25d366, #12a850);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: clamp(10px, 3.2vw, 14px);
+    flex-shrink: 0;
     box-shadow: 0 7px 15px -6px rgba(37, 211, 102, .7);
   }
 
@@ -75,7 +82,7 @@
 
   h1 {
     font-size: clamp(16px, 4.5vw, 18px);
-    margin: 0 0 4px;
+    margin: 0;
     letter-spacing: -0.2px;
     line-height: 1.25;
   }
@@ -260,14 +267,15 @@
     body { align-items: flex-start; }
     .card { padding-top: 16px; padding-bottom: 16px; }
     .card-head { margin-bottom: 12px; }
-    .logo { width: 36px; height: 36px; margin-bottom: 10px; }
+    .logo { width: 34px; height: 34px; }
   }
 
   /* TABLET PORTRAIT */
   @media (min-width: 600px) and (max-width: 899px) {
     .card { max-width: 600px; border-radius: 22px; padding: 40px 40px 36px; }
-    .card-head { margin-bottom: 28px; }
-    .logo { width: 56px; height: 56px; border-radius: 16px; margin-bottom: 22px; }
+    .card-head { margin-bottom: 24px; }
+    .title-row { gap: 14px; margin-bottom: 12px; }
+    .logo { width: 44px; height: 44px; border-radius: 14px; }
     h1 { font-size: 24px; }
     .sub { font-size: 15px; }
     .row .field-cc { flex: 0 0 110px; }
@@ -297,8 +305,9 @@
     }
     .card-head { margin-bottom: 0; padding-top: 4px; }
     .card-body { min-width: 0; border-left: 1px solid var(--line); padding-left: 44px; }
-    .logo { width: 60px; height: 60px; border-radius: 17px; margin-bottom: 24px; }
-    h1 { font-size: 27px; }
+    .title-row { gap: 14px; margin-bottom: 14px; }
+    .logo { width: 46px; height: 46px; border-radius: 14px; }
+    h1 { font-size: 24px; }
     .sub { font-size: 15px; line-height: 1.6; }
     .row .field-cc { flex: 0 0 110px; }
     input { padding: 14px 16px; font-size: 15px; }
@@ -330,11 +339,13 @@
   <main class="card">
 
     <div class="card-head">
-      <div class="logo">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 2C6.5 2 2 6.5 2 12.05c0 1.77.46 3.44 1.28 4.89L2 22l5.2-1.36a10 10 0 0 0 4.85 1.24h.01c5.54 0 10.04-4.5 10.04-10.05C22.1 6.5 17.6 2 12.05 2zm0 18.13h-.01c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.09.81.83-3.01-.2-.31a8.3 8.3 0 0 1-1.28-4.43c0-4.6 3.75-8.34 8.36-8.34 2.23 0 4.32.87 5.9 2.45a8.28 8.28 0 0 1 2.44 5.9c0 4.6-3.75 8.28-8.39 8.28z"/></svg>
+      <div class="title-row">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 2C6.5 2 2 6.5 2 12.05c0 1.77.46 3.44 1.28 4.89L2 22l5.2-1.36a10 10 0 0 0 4.85 1.24h.01c5.54 0 10.04-4.5 10.04-10.05C22.1 6.5 17.6 2 12.05 2zm0 18.13h-.01c-1.5 0-2.98-.4-4.26-1.17l-.3-.18-3.09.81.83-3.01-.2-.31a8.3 8.3 0 0 1-1.28-4.43c0-4.6 3.75-8.34 8.36-8.34 2.23 0 4.32.87 5.9 2.45a8.28 8.28 0 0 1 2.44 5.9c0 4.6-3.75 8.28-8.39 8.28z"/></svg>
+        </div>
+        <h1>WhatsApp Number Adder</h1>
       </div>
-      <h1>WhatsApp Number Adder</h1>
-      <p class="sub">Type a 10-digit number and it will be added to the link <strong>wa.me</strong>. Click the button to open the chat instantly.</p>
+      <p class="sub">Type a 10-digit number to chat directly without saving contacts. Opens in the WhatsApp app on phone, and directly in WhatsApp Web on computer.</p>
     </div>
 
     <div class="card-body">
@@ -350,8 +361,8 @@
       </div>
 
       <div class="preview-box">
-        <div class="preview-label">Generated Link</div>
-        <div id="preview">https://wa.me/…</div>
+        <div class="preview-label" id="previewLabel">Direct Link</div>
+        <div id="preview">https://web.whatsapp.com/send?phone=…</div>
       </div>
 
       <div class="error" id="error" role="alert" aria-live="polite"></div>
@@ -359,7 +370,7 @@
       <div class="actions">
         <button class="btn-main" id="go" type="button">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-          Chat on WhatsApp
+          <span id="goBtnText">Open in WhatsApp Web</span>
         </button>
         <button class="btn-copy" id="copy" type="button" title="Copy link">Copy</button>
       </div>
@@ -369,7 +380,7 @@
         WhatsApp didn't open automatically? <a id="fallbackLink" href="#" target="_blank" rel="noopener noreferrer">Tap here to open the chat →</a>
       </div>
 
-      <p class="footer-note">Opens WhatsApp on your phone · Make sure the country code is correct</p>
+      <p class="footer-note" id="footerNote">Opens directly in WhatsApp · Make sure the country code is correct</p>
     </div>
 
   </main>
@@ -378,45 +389,29 @@
   const ccInput     = document.getElementById('cc');
   const numInput    = document.getElementById('number');
   const preview     = document.getElementById('preview');
+  const previewLbl  = document.getElementById('previewLabel');
   const errorEl     = document.getElementById('error');
   const goBtn       = document.getElementById('go');
+  const goBtnText   = document.getElementById('goBtnText');
   const copyBtn     = document.getElementById('copy');
   const fallbackBox = document.getElementById('fallback');
   const fallbackLnk = document.getElementById('fallbackLink');
+  const footerNote  = document.getElementById('footerNote');
 
   const onlyDigits = (str) => str.replace(/\D/g, '');
 
-  /* Detects mobile/tablet reliably — checks UA, touch points, and coarse pointer */
-  function isMobileDevice() {
+  /* Detects phone devices vs laptops/computers */
+  function isPhoneDevice() {
     const ua = navigator.userAgent || '';
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(ua)) return true;
-    if (navigator.maxTouchPoints > 1 && window.matchMedia('(pointer: coarse)').matches) return true;
+    if (/iPhone|iPod/i.test(ua)) return true;
+    if (/Android/i.test(ua) && /Mobile/i.test(ua)) return true;
+    if (/BlackBerry|IEMobile|Opera Mini|webOS/i.test(ua)) return true;
+    // Check coarse pointer with small screen typical for phones
+    if (window.matchMedia && window.matchMedia('(max-width: 600px) and (pointer: coarse)').matches) {
+      return true;
+    }
     return false;
   }
-
-  function buildLink() {
-    const cc  = onlyDigits(ccInput.value);
-    const num = onlyDigits(numInput.value);
-    if (!num) return null;
-    return `https://wa.me/${cc}${num}`;
-  }
-
-  function update() {
-    const link = buildLink();
-    preview.textContent = link || 'https://wa.me/…';
-    errorEl.textContent = '';
-    fallbackBox.classList.remove('show');
-  }
-
-  ccInput.addEventListener('input', () => {
-    ccInput.value = onlyDigits(ccInput.value).slice(0, 4);
-    update();
-  });
-
-  numInput.addEventListener('input', () => {
-    numInput.value = onlyDigits(numInput.value).slice(0, 10);
-    update();
-  });
 
   function validate() {
     const cc  = onlyDigits(ccInput.value);
@@ -433,46 +428,95 @@
       return null;
     }
     errorEl.textContent = '';
-    return `https://wa.me/${cc}${num}`;
+    return { cc, num, full: `${cc}${num}` };
   }
 
+  function update() {
+    const cc = onlyDigits(ccInput.value);
+    const num = onlyDigits(numInput.value);
+    const isPhone = isPhoneDevice();
+
+    if (isPhone) {
+      if (goBtnText) goBtnText.textContent = 'Open in WhatsApp App';
+      if (footerNote) footerNote.textContent = 'Opens directly in your WhatsApp app · Make sure the country code is correct';
+      if (previewLbl) previewLbl.textContent = 'Direct App Link';
+      preview.textContent = num ? `whatsapp://send?phone=${cc}${num}` : 'whatsapp://send?phone=…';
+    } else {
+      if (goBtnText) goBtnText.textContent = 'Open in WhatsApp Web';
+      if (footerNote) footerNote.textContent = 'Opens directly in WhatsApp Web · Make sure the country code is correct';
+      if (previewLbl) previewLbl.textContent = 'Direct Web WhatsApp Link';
+      preview.textContent = num ? `https://web.whatsapp.com/send?phone=${cc}${num}` : 'https://web.whatsapp.com/send?phone=…';
+    }
+
+    errorEl.textContent = '';
+    fallbackBox.classList.remove('show');
+  }
+
+  ccInput.addEventListener('input', () => {
+    ccInput.value = onlyDigits(ccInput.value).slice(0, 4);
+    update();
+  });
+
+  numInput.addEventListener('input', () => {
+    let val = onlyDigits(numInput.value);
+    if (val.length === 11 && val.startsWith('0')) {
+      val = val.slice(1);
+    }
+    numInput.value = val.slice(0, 10);
+    update();
+  });
+
   /* ------------------------------------------------------------------
-     THE IMPORTANT BIT: opening the link reliably on mobile.
-     On phones, window.open() is blocked by popup blockers — so we
-     navigate directly (window.location.href). This works 100% of the
-     time and instantly opens the WhatsApp app if it's installed.
-     On desktop, we open in a new tab and show a fallback link if a
-     popup blocker still intercepts.
+     DIRECT OPEN LOGIC:
+     - On Phone: Opens WhatsApp app directly via custom scheme (whatsapp://send?phone=...)
+     - On Laptop / Desktop: Opens directly in WhatsApp Web (https://web.whatsapp.com/send?phone=...)
+       without the intermediate "download or use web" prompt.
      ------------------------------------------------------------------ */
-  function openWhatsApp(url) {
+  function openDirectChat(fullNumber) {
     fallbackBox.classList.remove('show');
 
-    if (isMobileDevice()) {
-      // Direct navigation — always works on mobile, opens WhatsApp app
-      window.location.href = url;
+    if (isPhoneDevice()) {
+      // Direct navigation to custom app scheme — opens WhatsApp application directly on phone
+      const appUrl = `whatsapp://send?phone=${fullNumber}`;
+      const webUrl = `https://wa.me/${fullNumber}`;
+
+      fallbackLnk.href = webUrl;
+      fallbackLnk.textContent = 'Tap here to open chat in WhatsApp →';
+
+      window.location.href = appUrl;
+
+      // Fallback if app is not installed or scheme is intercepted
+      setTimeout(() => {
+        if (!document.hidden) {
+          fallbackBox.classList.add('show');
+        }
+      }, 1500);
       return;
     }
 
-    // Desktop: try a new tab
+    // Desktop / Laptop: direct WhatsApp Web link (bypasses wa.me landing prompt)
+    const webWhatsAppUrl = `https://web.whatsapp.com/send?phone=${fullNumber}`;
+    fallbackLnk.href = webWhatsAppUrl;
+    fallbackLnk.textContent = 'Tap here to open Web WhatsApp →';
+
     let win = null;
     try {
-      win = window.open(url, '_blank', 'noopener,noreferrer');
+      win = window.open(webWhatsAppUrl, '_blank', 'noopener,noreferrer');
     } catch {
       win = null;
     }
 
-    // If the popup was blocked, show the manual fallback link
+    // If popup was blocked or in restrictive iframe
     if (!win || win.closed || typeof win.closed === 'undefined') {
-      fallbackLnk.href = url;
       fallbackBox.classList.add('show');
     }
   }
 
   goBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    const link = validate();
-    if (!link) return;
-    openWhatsApp(link);
+    const data = validate();
+    if (!data) return;
+    openDirectChat(data.full);
   });
 
   /* Enter key triggers the chat */
@@ -485,15 +529,18 @@
 
   /* Copy link */
   copyBtn.addEventListener('click', async () => {
-    const link = validate();
-    if (!link) return;
+    const data = validate();
+    if (!data) return;
+    const linkToCopy = isPhoneDevice()
+      ? `https://wa.me/${data.full}`
+      : `https://web.whatsapp.com/send?phone=${data.full}`;
+
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(link);
+        await navigator.clipboard.writeText(linkToCopy);
       } else {
-        // Fallback for older mobile browsers
         const tmp = document.createElement('textarea');
-        tmp.value = link;
+        tmp.value = linkToCopy;
         tmp.style.cssText = 'position:absolute;left:-9999px;';
         document.body.appendChild(tmp);
         tmp.select();
