@@ -1,6 +1,6 @@
 {
   "name": "WhatsApp Number Adder",
-  "description": "Directly message any WhatsApp number without saving it to your contacts.",
+  "description": "WhatsApp Chat Automate with Unknown Number. Created by Shivani.",
   "permissions": [],
   "capabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
