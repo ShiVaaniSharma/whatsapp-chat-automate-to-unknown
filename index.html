@@ -109,13 +109,13 @@
     gap: 8px;
   }
 
-  .row .field-cc  { flex: 0 0 74px; }
+  .row .field-cc  { flex: 0 0 138px; }
   .row .field-num { flex: 1 1 auto; min-width: 0; }
 
-  input {
+  input, select {
     width: 100%;
     padding: 10px 11px;
-    font-size: 16px;                 /* 16px stops iOS auto-zoom */
+    font-size: 15px;                 /* 15-16px stops iOS auto-zoom */
     font-family: inherit;
     color: var(--ink);
     background: var(--bg-soft);
@@ -127,10 +127,22 @@
     appearance: none;
   }
 
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 26px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
   input::placeholder { color: #a3aebd; }
 
-  input:focus {
-    background: #fff;
+  input:focus, select:focus {
+    background-color: #fff;
     border-color: var(--green);
     box-shadow: 0 0 0 3.5px rgba(37, 211, 102, .15);
   }
@@ -237,14 +249,6 @@
     text-decoration: underline;
   }
 
-  .footer-note {
-    margin-top: clamp(10px, 3vw, 14px);
-    font-size: clamp(10px, 2.9vw, 11px);
-    color: var(--muted);
-    text-align: center;
-    line-height: 1.45;
-  }
-
   .credit {
     margin-top: clamp(14px, 3.5vw, 18px);
     padding-top: clamp(10px, 2.5vw, 12px);
@@ -269,7 +273,7 @@
   @media (max-width: 360px) {
     .row { flex-direction: column; gap: 10px; }
     .row .field-cc { flex: 1 1 auto; }
-    .row .field-cc input,
+    .row .field-cc select,
     .row .field-num input { width: 100%; }
   }
 
@@ -295,8 +299,9 @@
     .logo { width: 44px; height: 44px; border-radius: 14px; }
     h1 { font-size: 24px; }
     .sub { font-size: 15px; }
-    .row .field-cc { flex: 0 0 110px; }
-    input { padding: 14px 16px; }
+    .row .field-cc { flex: 0 0 160px; }
+    input, select { padding: 14px 16px; }
+    select { background-position: right 12px center; padding-right: 32px; }
     .field { margin-bottom: 20px; }
     .preview-box { padding: 14px 16px; }
     .preview-label { font-size: 11px; }
@@ -306,7 +311,6 @@
     .btn-main { padding: 16px 22px; gap: 9px; }
     .btn-main svg { width: 18px; height: 18px; }
     .btn-copy { padding: 16px 22px; min-width: 110px; }
-    .footer-note { font-size: 12.5px; margin-top: 18px; }
   }
 
   /* TABLET LANDSCAPE / DESKTOP */
@@ -326,8 +330,9 @@
     .logo { width: 46px; height: 46px; border-radius: 14px; }
     h1 { font-size: 24px; }
     .sub { font-size: 15px; line-height: 1.6; }
-    .row .field-cc { flex: 0 0 110px; }
-    input { padding: 14px 16px; font-size: 15px; }
+    .row .field-cc { flex: 0 0 170px; }
+    input, select { padding: 14px 16px; font-size: 15px; }
+    select { background-position: right 12px center; padding-right: 34px; }
     .field { margin-bottom: 20px; }
     .preview-box { padding: 14px 16px; }
     .preview-label { font-size: 11px; }
@@ -337,7 +342,6 @@
     .btn-main { padding: 16px 22px; gap: 9px; }
     .btn-main svg { width: 18px; height: 18px; }
     .btn-copy { padding: 16px 22px; min-width: 110px; }
-    .footer-note { font-size: 12.5px; margin-top: 20px; }
   }
 
   @media (min-width: 1200px) {
@@ -368,8 +372,56 @@
     <div class="card-body">
       <div class="row">
         <div class="field field-cc">
-          <label for="cc">Code</label>
-          <input id="cc" type="text" inputmode="numeric" pattern="[0-9]*" value="91" maxlength="4" autocomplete="tel-country-code" />
+          <label for="cc">Country</label>
+          <select id="cc" autocomplete="tel-country-code" title="Select Country Code">
+            <option value="91" selected>🇮🇳 +91 India</option>
+            <option value="1">🇺🇸 +1 USA / Canada</option>
+            <option value="44">🇬🇧 +44 UK</option>
+            <option value="971">🇦🇪 +971 UAE</option>
+            <option value="966">🇸🇦 +966 Saudi Arabia</option>
+            <option value="92">🇵🇰 +92 Pakistan</option>
+            <option value="880">🇧🇩 +880 Bangladesh</option>
+            <option value="61">🇦🇺 +61 Australia</option>
+            <option value="65">🇸🇬 +65 Singapore</option>
+            <option value="60">🇲🇾 +60 Malaysia</option>
+            <option value="62">🇮🇩 +62 Indonesia</option>
+            <option value="63">🇵🇭 +63 Philippines</option>
+            <option value="49">🇩🇪 +49 Germany</option>
+            <option value="33">🇫🇷 +33 France</option>
+            <option value="39">🇮🇹 +39 Italy</option>
+            <option value="34">🇪🇸 +34 Spain</option>
+            <option value="31">🇳🇱 +31 Netherlands</option>
+            <option value="41">🇨🇭 +41 Switzerland</option>
+            <option value="353">🇮🇪 +353 Ireland</option>
+            <option value="55">🇧🇷 +55 Brazil</option>
+            <option value="52">🇲🇽 +52 Mexico</option>
+            <option value="54">🇦🇷 +54 Argentina</option>
+            <option value="57">🇨🇴 +57 Colombia</option>
+            <option value="234">🇳🇬 +234 Nigeria</option>
+            <option value="27">🇿🇦 +27 South Africa</option>
+            <option value="254">🇰🇪 +254 Kenya</option>
+            <option value="20">🇪🇬 +20 Egypt</option>
+            <option value="90">🇹🇷 +90 Turkey</option>
+            <option value="81">🇯🇵 +81 Japan</option>
+            <option value="82">🇰🇷 +82 South Korea</option>
+            <option value="86">🇨🇳 +86 China</option>
+            <option value="7">🇷🇺 +7 Russia / KZ</option>
+            <option value="64">🇳🇿 +64 New Zealand</option>
+            <option value="48">🇵🇱 +48 Poland</option>
+            <option value="351">🇵🇹 +351 Portugal</option>
+            <option value="46">🇸🇪 +46 Sweden</option>
+            <option value="47">🇳🇴 +47 Norway</option>
+            <option value="45">🇩🇰 +45 Denmark</option>
+            <option value="94">🇱🇰 +94 Sri Lanka</option>
+            <option value="977">🇳🇵 +977 Nepal</option>
+            <option value="974">🇶🇦 +974 Qatar</option>
+            <option value="968">🇴🇲 +968 Oman</option>
+            <option value="965">🇰🇼 +965 Kuwait</option>
+            <option value="973">🇧🇭 +973 Bahrain</option>
+            <option value="962">🇯🇴 +962 Jordan</option>
+            <option value="961">🇱🇧 +961 Lebanon</option>
+            <option value="212">🇲🇦 +212 Morocco</option>
+          </select>
         </div>
         <div class="field field-num">
           <label for="number">WhatsApp Number (10 digits)</label>
@@ -397,7 +449,6 @@
         WhatsApp didn't open automatically? <a id="fallbackLink" href="#" target="_blank" rel="noopener noreferrer">Tap here to open the chat →</a>
       </div>
 
-      <p class="footer-note" id="footerNote">Opens directly in WhatsApp · Make sure the country code is correct</p>
       <div class="credit">
         WhatsApp Chat Automate with Unknown Number &bull; Created by <strong>Shivani</strong>
       </div>
@@ -416,7 +467,6 @@
   const copyBtn     = document.getElementById('copy');
   const fallbackBox = document.getElementById('fallback');
   const fallbackLnk = document.getElementById('fallbackLink');
-  const footerNote  = document.getElementById('footerNote');
 
   const onlyDigits = (str) => str.replace(/\D/g, '');
 
@@ -438,7 +488,7 @@
     const num = onlyDigits(numInput.value);
 
     if (!cc) {
-      errorEl.textContent = 'Please enter a country code (e.g. 91).';
+      errorEl.textContent = 'Please select a country code.';
       ccInput.focus();
       return null;
     }
@@ -458,12 +508,10 @@
 
     if (isPhone) {
       if (goBtnText) goBtnText.textContent = 'Open in WhatsApp App';
-      if (footerNote) footerNote.textContent = 'Opens directly in your WhatsApp app · Make sure the country code is correct';
       if (previewLbl) previewLbl.textContent = 'Direct App Link';
       preview.textContent = num ? `whatsapp://send?phone=${cc}${num}` : 'whatsapp://send?phone=…';
     } else {
       if (goBtnText) goBtnText.textContent = 'Open in WhatsApp Web';
-      if (footerNote) footerNote.textContent = 'Opens directly in WhatsApp Web · Make sure the country code is correct';
       if (previewLbl) previewLbl.textContent = 'Direct Web WhatsApp Link';
       preview.textContent = num ? `https://web.whatsapp.com/send?phone=${cc}${num}` : 'https://web.whatsapp.com/send?phone=…';
     }
@@ -472,9 +520,9 @@
     fallbackBox.classList.remove('show');
   }
 
-  ccInput.addEventListener('input', () => {
-    ccInput.value = onlyDigits(ccInput.value).slice(0, 4);
+  ccInput.addEventListener('change', () => {
     update();
+    numInput.focus();
   });
 
   numInput.addEventListener('input', () => {
