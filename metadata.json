@@ -1,6 +1,6 @@
 {
   "name": "WhatsApp Number Adder",
-  "description": "WhatsApp Chat Automate with Unknown Number. Created by Shivani.",
+  "description": "Chat on WhatsApp without saving numbers and check if any number is on WhatsApp. Created by Shivani.",
   "permissions": [],
   "capabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
