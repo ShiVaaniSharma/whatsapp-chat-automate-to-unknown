@@ -1,0 +1,514 @@
+:root {
+  --tree-green: #2e7d32;
+  --tree-green-hover: #256b29;
+  --tree-green-dark: #1b5e20;
+  --wa-green: #2e7d32;
+  --wa-green-hover: #256b29;
+  --wa-teal: #1b5e20;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --bg-soft: #f8fafc;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Centered across all devices (Mobile, Tablet, Desktop) */
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at 50% 20%, #e6f7f2 0%, #f1f5f9 55%, #e2e8f0 100%);
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD - centered, compact, perfect proportions */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.16),
+              0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  margin: auto 0;
+}
+
+.card-head {
+  margin-bottom: 12px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: none;
+}
+
+.logo svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--tree-green);
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.3px;
+  line-height: 1.25;
+  color: #0f172a;
+}
+
+.sub {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #334155;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.row .field-cc  { flex: 0 0 128px; }
+.row .field-num { flex: 1 1 auto; min-width: 0; }
+
+input, select {
+  width: 100%;
+  padding: 9.5px 11px;
+  font-size: 14.5px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--bg-soft);
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  outline: none;
+  transition: border-color .18s, box-shadow .18s, background .18s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2364748b'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 15px;
+  padding-right: 25px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+input::placeholder { color: #94a3b8; }
+
+input:focus, select:focus {
+  background-color: #fff;
+  border-color: var(--wa-green);
+  box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.18);
+}
+
+.field { margin-bottom: 9px; }
+
+.num-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.num-label-row label {
+  margin-bottom: 0;
+}
+
+.num-hint {
+  font-size: 10.5px;
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.input-refresh-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-refresh-wrap input {
+  padding-right: 36px;
+}
+
+.btn-refresh {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  min-height: 26px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .18s, background .18s, transform .2s ease;
+  z-index: 2;
+}
+
+.btn-refresh:hover {
+  color: var(--ink);
+  background: #e2e8f0;
+}
+
+.btn-refresh:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.btn-refresh.spinning svg {
+  animation: refreshSpin 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes refreshSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* WhatsApp Number Checker Box */
+.checker-box {
+  background: var(--bg-soft);
+  border: 1.5px solid var(--line);
+  border-radius: 9px;
+  padding: 7px 10px;
+  margin-bottom: 9px;
+  transition: border-color .18s, background-color .18s;
+}
+
+.checker-box.valid {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.checker-box.invalid {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.checker-box.typing {
+  background: #fefce8;
+  border-color: #fde047;
+}
+
+.checker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.checker-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: #475569;
+}
+
+.checker-title svg {
+  color: var(--wa-green);
+  flex-shrink: 0;
+}
+
+.checker-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1.5px 6px;
+  border-radius: 5px;
+  line-height: 1.25;
+}
+
+.checker-badge.idle {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.checker-badge.typing {
+  background: #fef08a;
+  color: #854d0e;
+}
+
+.checker-badge.valid {
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.checker-badge.invalid {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.checker-body {
+  font-size: 11px;
+  color: #475569;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.preview-box {
+  background: var(--bg-soft);
+  border: 1.5px dashed var(--line);
+  border-radius: 9px;
+  padding: 7px 10px;
+  margin-bottom: 10px;
+}
+
+.preview-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+#preview {
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  font-size: 11px;
+  color: #0d9488;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 11.5px;
+  font-weight: 600;
+  min-height: 15px;
+  margin: -6px 0 6px;
+  line-height: 1.3;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  min-height: 42px;
+  transition: transform .12s, background .18s, box-shadow .18s, border-color .18s;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+button:active { transform: scale(.97); }
+
+/* Primary "Let's Chat" button */
+.btn-main {
+  flex: 1 1 auto;
+  padding: 10px 18px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+  border: none;
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-align: center;
+  letter-spacing: -0.1px;
+}
+
+.btn-main:hover {
+  background: linear-gradient(135deg, #388e3c 0%, #256b29 100%);
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.48);
+}
+
+.btn-main svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* Secondary "Copy Link" button */
+.btn-copy {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  color: #334155;
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.btn-copy:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.btn-copy svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.btn-copy.copied {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+/* Fallback link */
+.fallback {
+  display: none;
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: #fff7ed;
+  border: 1.5px solid #fed7aa;
+  border-radius: 9px;
+  font-size: 11px;
+  color: #9a3412;
+  text-align: center;
+  line-height: 1.45;
+  word-break: break-all;
+}
+.fallback.show { display: block; }
+.fallback a {
+  color: #0f766e;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.credit {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: 10.5px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.45;
+}
+
+.credit strong {
+  color: var(--wa-green);
+  font-weight: 700;
+}
+
+/* Responsive Adjustments */
+
+/* Narrow Phones */
+@media (max-width: 360px) {
+  .row { flex-direction: column; gap: 8px; }
+  .row .field-cc { flex: 1 1 auto; }
+  .row .field-cc select,
+  .row .field-num input { width: 100%; }
+  .actions { flex-direction: column; }
+  .btn-copy { width: 100%; }
+}
+
+/* TABLET & DESKTOP: Centered, sleek, no extra gaps, perfectly balanced */
+@media (min-width: 600px) {
+  body {
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    max-width: 440px;
+    border-radius: 20px;
+    padding: 22px 24px 18px;
+    margin: auto;
+  }
+  .card-head { margin-bottom: 14px; }
+  .title-row { gap: 11px; margin-bottom: 6px; }
+  .logo { width: 36px; height: 36px; border-radius: 0; box-shadow: none; }
+  h1 { font-size: 20px; }
+  .sub { font-size: 13px; }
+  .row .field-cc { flex: 0 0 142px; }
+  input, select { padding: 10px 12px; font-size: 15px; }
+  select { background-position: right 10px center; padding-right: 28px; }
+  .field { margin-bottom: 11px; }
+  .checker-box { padding: 8px 12px; margin-bottom: 10px; }
+  .preview-box { padding: 8px 12px; margin-bottom: 11px; }
+  .actions { gap: 10px; }
+  button { min-height: 44px; font-size: 14.5px; }
+  .btn-main { padding: 11px 20px; }
+  .btn-copy { padding: 11px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  button:active { transform: none; }
+}
